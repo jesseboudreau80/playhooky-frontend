@@ -150,3 +150,8 @@ The conventions or general rules for the structure of this project are the follo
 - `State` and `props` must be destructured before used
 - More conventions and patters can be found looking the code
 
+# Summary of limitations
+- Toogether name and brand are registered, therefore you cannot use the name, designs and colors 
+- You can use the app for any learning purpose as long as it runs in your local environment. In other words, you cannot deploy our code
+- You can use the code for learning purposes and references, so if you are creating a similar app, you can use our code as reference to learn how to do things. For example, if you need to build a swipe feature, you can use the Toogether code to learn how to do it and get inspiration in the way we've done it
+
