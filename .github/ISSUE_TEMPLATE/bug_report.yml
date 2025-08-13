@@ -1,0 +1,14 @@
+name: Bug report
+description: File a bug
+labels: [bug]
+body:
+  - type: textarea
+    attributes: { label: What happened?, placeholder: Tell us what you saw }
+    validations: { required: true }
+  - type: textarea
+    attributes: { label: Steps to reproduce }
+    validations: { required: true }
+  - type: input
+    attributes: { label: Version/commit }
+  - type: textarea
+    attributes: { label: Logs }

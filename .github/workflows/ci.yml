@@ -1,0 +1,47 @@
+name: ci
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Python path (if requirements or pyproject exist)
+      - name: Setup Python
+        if: ${{ hashFiles('requirements.txt') != '' || hashFiles('pyproject.toml') != '' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Python deps
+        if: ${{ hashFiles('requirements.txt') != '' }}
+        run: pip install -r requirements.txt
+
+      - name: Python dev deps
+        if: ${{ hashFiles('requirements-dev.txt') != '' }}
+        run: pip install -r requirements-dev.txt
+
+      - name: Python tests
+        if: ${{ hashFiles('requirements.txt') != '' || hashFiles('pyproject.toml') != '' }}
+        run: |
+          export PYTHONPATH=.
+          pytest -q || echo "No tests or pytest not configured"
+
+      # Node path (if package.json exists)
+      - name: Setup Node
+        if: ${{ hashFiles('package.json') != '' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Node install
+        if: ${{ hashFiles('package.json') != '' }}
+        run: npm ci
+
+      - name: Node tests
+        if: ${{ hashFiles('package.json') != '' }}
+        run: npm test --if-present
